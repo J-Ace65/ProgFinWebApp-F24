@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-800">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a class="text-2xl font-bold text-green-500" href="#">Stock Market</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="/register" class="text-gray-300 hover:text-green-500">Create Account</a>
+                <a href="/login" class="text-gray-300 hover:text-green-500">Login</a>
+                <a href="#" class="text-gray-300 hover:text-green-500">About</a>
+                <div class="hidden md:block">
+                    <form action="https://www.google.com/search" method="GET" target="_blank">
+                      <input type="text" name="q" placeholder="Search" class="p-2 rounded bg-gray-700 text-white">
+                    </form>
+                  </div>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-gray-300 focus:outline-none focus:text-green-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="flex items-center justify-center min-h-screen bg-gray-900">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-white">
+                <span class="text-green-500">Your Gateway</span> to Smart <span class="text-green-500">Investments</span>
+            </h1>
+            <p class="text-gray-400 mt-6 text-lg">
+                Take control of your financial future with reliable tools and insights.
+            </p>
+            <a href="/register" class="mt-8 inline-block bg-green-500 text-white font-bold py-3 px-6 rounded hover:bg-green-600">
+                Get Started
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        menuToggle.addEventListener('click', () => {
+            // Toggle logic for mobile menu can be added here
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-green-600 text-white p-4">
+        <h1 class="text-xl font-bold text-center">Dashboard</h1>
+    </header>
+
+    <!-- Main Dashboard Container -->
+    <main class="container mx-auto p-6 space-y-6">
+
+        <!-- Welcome Section -->
+        <section class="bg-white shadow-md rounded-lg p-4">
+            <h2 class="text-2xl font-bold text-green-600">Welcome to Your Dashboard!</h2>
+            <p class="text-gray-700 mt-2">
+                Explore the latest updates, monitor your investments, and take control of your financial journey.
+            </p>
+        </section>
+
+        <!-- Portfolio Overview -->
+        <section class="bg-white shadow-md rounded-lg p-4">
+            <h3 class="text-xl font-bold text-gray-800">Portfolio Overview</h3>
+            <ul class="mt-4 space-y-2 text-gray-700">
+                <li>Stocks Owned: 10</li>
+                <li>Total Portfolio Value: $12,500</li>
+                <li>Total Profit/Loss: <span class="text-green-600">+8%</span></li>
+            </ul>
+        </section>
+
+        <!-- Features Section -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Feature: Buy/Sell Stocks -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h4 class="text-lg font-bold text-gray-800">Buy/Sell</h4>
+                <p class="text-gray-600 mt-2">
+                    Trade your favorite stocks and explore real-time updates to maximize your investments.
+                </p>
+                <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mt-4">
+                    Start Trading
+                </button>
+            </div>
+
+            <!-- Feature: Market News -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h4 class="text-lg font-bold text-gray-800">Market News</h4>
+                <p class="text-gray-600 mt-2">
+                    Stay informed with the latest news and trends from the stock market.
+                </p>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4">
+                    <a href="https://www.bloomberg.com/">Read News</a>
+                </button>
+            </div>
+
+            <!-- Feature: Watchlist -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h4 class="text-lg font-bold text-gray-800">Watchlist</h4>
+                <p class="text-gray-600 mt-2">
+                    Track the stocks you're interested in and monitor their performance.
+                </p>
+                <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 mt-4">
+                <a href="/watchlist"> View Watchlist</a>
+                </button>
+            </div>
+
+            <!-- Feature: Trade History -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h4 class="text-lg font-bold text-gray-800">Trade History</h4>
+                <p class="text-gray-600 mt-2">
+                    Review all your past trades and analyze your performance over time.
+                </p>
+                <button class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 mt-4">
+                    View History
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="text-center text-gray-600 text-sm mt-6">
+            © 2024 Stock Market Dashboard. All Rights Reserved.
+        </footer>
+    </main>
+</body>
+</html>
