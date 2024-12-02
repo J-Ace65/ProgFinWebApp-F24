@@ -13,35 +13,31 @@ app.use(session({
     cookie: { secure: false } // Set to true if using HTTPS
 }));
 
-
-app.use(express.json()); // Middleware for JSON parsing
+app.use(express.json());
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-
 // API Routes
 app.use('/api/users', userRoutes);
 
 // Routes for specific pages
+//homepage
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/pages/home.html')); // Serve the home page
+    res.sendFile(path.join(__dirname, 'public/pages/home.html'));
 });
-
+//login page
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/pages/login.html')); // Serve the login page
+    res.sendFile(path.join(__dirname, 'public/pages/login.html'));
 });
-
+//registeration
 app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/pages/register.html')); // Serve the registration page
+    res.sendFile(path.join(__dirname, 'public/pages/register.html'));
 });
+//dashboard
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/pages/dashboard.html'));
 });
-app.get('/watchlist', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/pages/watchlist.html'));
-});
+//tradehistory of user page
 app.get('/tradehistory', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/pages/tradehistory.html'))
 })
