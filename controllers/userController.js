@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt=require('jsonwebtoken')
 const db = require('../confiq/db'); // Assuming your database connection is in a `config/db.js` file
 
 // Function to handle user registration
@@ -39,6 +40,8 @@ const registerUser = async (req, res) => {
 
 
 // Login function
+
+
 const loginUser = (req, res) => {
     const { email, password } = req.body;
 
@@ -46,28 +49,20 @@ const loginUser = (req, res) => {
         return res.status(400).send('Email and password are required.');
     }
 
-    // Check if user exists in the database
-    const sql = 'SELECT * FROM user WHERE email = ?';
-    db.query(sql, [email], async (err, results) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Database error');
-        }
+        const sql = 'SELECT * FROM user WHERE email = ?';
+        db.query(sql, [email], async (err, results) => {
+        if (err) return res.status(500).send('Database error');
+        if (results.length === 0) return res.status(401).send('Invalid email or password');
 
-        if (results.length === 0) {
-            return res.status(401).send('Invalid email or password.');
-        }
+            const user = results[0];
+            const isMatch = await bcrypt.compare(password, user.password);
 
-        const user = results[0];
+        if (!isMatch) return res.status(401).send('Invalid email or password');
 
-        // Compare the hashed password
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(401).send('Invalid email or password.');
-        }
+        // Store the user ID in session
+        req.session.userId = user.id;
 
-        // Login successful
-        res.status(200).json({ message: 'Login successful' });
+        res.status(200).json({ message: 'Login successful', userId: user.id });
     });
 };
 

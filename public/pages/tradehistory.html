@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade History</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-6">Trade History</h1>
+        <div id="tradeHistory" class="bg-white shadow-md rounded p-6">
+            <h2 class="text-xl font-semibold mb-4">Your Trades</h2>
+            <table class="table-auto w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200 text-left">
+                        <th class="border border-gray-300 p-2">Trade ID</th>
+                        <th class="border border-gray-300 p-2">Symbol</th>
+                        <th class="border border-gray-300 p-2">Price/Share</th>
+                        <th class="border border-gray-300 p-2">Quantity</th>
+                        <th class="border border-gray-300 p-2">Total Price</th>
+                        <th class="border border-gray-300 p-2">Buy Time</th>
+                    </tr>
+                </thead>
+                <tbody id="tradeTableBody">
+                    <!-- Trades will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+
+    fetch('http://localhost:3000/api/users/tradehistory', {
+        method: 'GET',
+        credentials: 'include' // Sends the session cookie with the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            if (response.status === 401) {
+                alert('You need to log in to view your trade history.');
+                window.location.href = '/login';
+            } else {
+                throw new Error('Failed to fetch trade history.');
+            }
+        }
+        return response.json();
+    })
+    .then(trades => {
+        const tradeTableBody = document.getElementById('tradeTableBody');
+        trades.forEach(trade => {
+            const row = `
+                <tr>
+                    <td class="border border-gray-300 p-2">${trade.trade_id}</td>
+                    <td class="border border-gray-300 p-2">${trade.symbol}</td>
+                    <td class="border border-gray-300 p-2">${trade.price_per_share}</td>
+                    <td class="border border-gray-300 p-2">${trade.quantity}</td>
+                    <td class="border border-gray-300 p-2">${trade.total_price}</td>
+                    <td class="border border-gray-300 p-2">${trade.buy_time}</td>
+                </tr>
+            `;
+            tradeTableBody.insertAdjacentHTML('beforeend', row);
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Could not fetch trade history. Please try again later.');
+    });
+</script>
+
+</body>
+</html>
