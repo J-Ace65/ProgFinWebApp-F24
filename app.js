@@ -19,6 +19,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 // API Routes
 app.use('/api/users', userRoutes);
+app.use('/api/stocks', userRoutes); //added this
+app.use('/api/trade', userRoutes);
 
 // Routes for specific pages
 //homepage
@@ -40,6 +42,12 @@ app.get('/dashboard', (req, res) => {
 //tradehistory of user page
 app.get('/tradehistory', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/pages/tradehistory.html'))
+})
+app.get('/watchlist', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/pages/watchlist.html'));
+});
+app.get('/stockhistory', (req, res)=>{
+    res.sendFile(path.join(__dirname,'public/pages/stockhistory.html'))
 })
 
 const PORT = 3000;

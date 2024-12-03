@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 
-const db = require('../confiq/db'); // Assuming your database connection is in a `config/db.js` file
+const db = require('../confiq/db'); 
+    // Assuming your database connection is in a `config/db.js` file
 
 // Function to handle user registration
 const registerUser = async (req, res) => {

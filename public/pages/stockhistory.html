@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock History</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      body {
+          background-color: #1E293B; /* Match the dark background color */
+      }
+  </style>
+</head>
+
+<body class="min-h-screen flex text-gray-300">
+    <aside class="w-1/4 bg-gray-800 p-4">
+        <h2 class="text-lg font-bold text-gray-100 mb-4">Stocks</h2>
+        <ul id="stock-list" class="space-y-2">
+            <!-- Stock names will be dynamically inserted here -->
+        </ul>
+    </aside>
+
+    <main class="flex-1 p-6">
+        <div class="bg-gray-900 rounded-lg shadow-md p-4">
+            <h3 class="text-lg font-bold text-gray-100 mb-4">Stock Chart</h3>
+            <div id="chart-container" class="h-96 flex justify-center items-center">
+                <!-- Placeholder for the chart -->
+                <p class="text-gray-400">Click on a stock to view its chart.</p>
+            </div>
+        </div>
+      
+      <!-- Added section to display statistics -->
+      <div id="stockStats" class="mt-4 p-4 bg-gray-800 rounded">
+        <h3 class="text-lg font-bold mb-2">Statistics</h3>
+        <p id="meanValue">Mean: Loading...</p>
+        <p id="maxValue">Max: Loading...</p>
+      </div>
+      <!-- Performance Metrics -->
+      <div id="performanceMetrics" class="mt-4 p-4 bg-gray-800 rounded">
+        <h3 class="text-lg font-bold mb-2">Performance Metrics</h3>
+        <p id="profitValue">Total Profit: Loading...</p>
+        <p id="maxDrawdownValue">Max Drawdown: Loading...</p>
+        <p id="overallPerformanceValue">Overall Performance: Loading...</p>
+      </div>
+    </main>
+
+    <!-- Include the JavaScript File -->
+    <script src="../scripts/stockHistory.js"></script>
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+
+</body>
+</html>
