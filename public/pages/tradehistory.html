@@ -20,6 +20,8 @@
                         <th class="border border-gray-300 p-2">Quantity</th>
                         <th class="border border-gray-300 p-2">Total Price</th>
                         <th class="border border-gray-300 p-2">Buy Time</th>
+                        <th class="border border-gray-300 p-2">Status</th>
+                        <th class="border border-gray-300 p-2">PnL</th>
                     </tr>
                 </thead>
                 <tbody id="tradeTableBody">
@@ -56,6 +58,8 @@
                     <td class="border border-gray-300 p-2">${trade.quantity}</td>
                     <td class="border border-gray-300 p-2">${trade.total_price}</td>
                     <td class="border border-gray-300 p-2">${trade.buy_time}</td>
+                    <td class="border border-gray-300 p-2">${trade.status}</td>
+                    <td class="border border-gray-300 p-2">${trade.pnl}</td>
                 </tr>
             `;
             tradeTableBody.insertAdjacentHTML('beforeend', row);
