@@ -6,7 +6,6 @@ const getTradesByUser = async (req, res) => {
     if (!userId) {
         return res.status(401).send('User not logged in.');
     }
-
     try {
         const sql = 'SELECT * FROM trade WHERE user_id = ?';
         const [results] = await pool.query(sql, [userId]); // Use await with pool.query for Promise-based API
