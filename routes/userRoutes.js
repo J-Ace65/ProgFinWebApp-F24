@@ -51,4 +51,22 @@ router.get('/stockhistory/:symbol', async (req, res) => {
       res.status(500).json({ error: 'An error occurred while fetching active stocks' });
     }
   });
+
+  router.get('/total-pnl', async (req, res) => {
+    try {
+      // Query to sum the PnL
+      const [rows] = await db.execute(
+        `SELECT SUM(pnl) AS total_pnl FROM trade WHERE status = 'Active'`
+      );
+  
+      const totalPnl = rows[0]?.total_pnl || 0; // Ensure totalPnl is always a number
+      res.json({ totalPnl });
+    } catch (error) {
+      console.error('Error fetching total PnL:', error);
+      res.status(500).json({ error: 'An error occurred while fetching total PnL' });
+    }
+  });
+  
+  
+
 module.exports = router;
