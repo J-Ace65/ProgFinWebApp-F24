@@ -10,7 +10,10 @@ app.use(session({
     secret: 'tea', // Change this to a strong secret in production
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Set to true if using HTTPS
+    cookie: { 
+        secure: false,
+        maxAge: 60*60*1000
+     } // Set to true if using HTTPS
 }));
 
 app.use(express.json());
