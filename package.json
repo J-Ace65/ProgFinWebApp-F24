@@ -19,6 +19,7 @@
     "jasmine": "^5.5.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.5",
-    "puppeteer": "^23.10.1"
+    "puppeteer": "^23.10.1",
+    "yahoo-finance2": "^2.13.2"
   }
 }
