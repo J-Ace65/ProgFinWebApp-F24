@@ -13,7 +13,17 @@
   </style>
 </head>
 
-<body class="min-h-screen flex text-gray-300">
+<body class="min-h-screen text-gray-300">
+  <div>
+  <header class="bg-green-600 text-white p-4">
+    <h1 class="text-xl font-bold text-center">Stock History and Backtesting</h1>
+    <a href="/" class="bg-green-500 text-white px-4  mx-5 py-2 rounded hover:bg-green-600 mt-4"><button>Logout</button></a>
+    <a href="/dashboard" class="bg-green-500 text-white px-4 py-2 mx-5 rounded hover:bg-green-600 mt-4"><button>Dashboard</button></a>
+    <a href="/watchlist" class="bg-green-500 text-white px-4 py-2 mx-5 rounded hover:bg-green-600 mt-4"><button>Trading Area</button></a>
+    <a href="/tradehistory" class="bg-green-500 text-white px-4 py-2 mx-5 rounded hover:bg-green-600 mt-4"><button>Trade History</button></a>
+</header>
+</div>
+      <div class="flex">
     <aside class="w-1/4 bg-gray-800 p-4">
         <h2 class="text-lg font-bold text-gray-100 mb-4">Stocks</h2>
         <ul id="stock-list" class="space-y-2">
@@ -43,6 +53,7 @@
         <p id="overallPerformanceValue">Overall Performance: Loading...</p>
       </div>
     </main>
+  </div>
 
     <!-- Include the JavaScript File -->
     <script src="../scripts/stockHistory.js"></script>
