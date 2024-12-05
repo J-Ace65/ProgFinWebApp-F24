@@ -1,4 +1,3 @@
-userRoutes.js
 const express = require('express');
 const { registerUser, loginUser } = require('../controllers/userController');
 const{getTradesByUser}=require('../controllers/tradeHistoryController')
