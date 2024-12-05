@@ -7,13 +7,13 @@ const session = require('express-session');
 const app = express();
 
 app.use(session({
-    secret: 'tea', // Change this to a strong secret in production
+    secret: 'tea', 
     resave: false,
     saveUninitialized: true,
     cookie: { 
         secure: false,
-        maxAge: 60*60*1000
-     } // Set to true if using HTTPS
+        maxAge: 60*60*1000,
+     } 
 }));
 
 app.use(express.json());
@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 // API Routes
 app.use('/api/users', userRoutes);
-app.use('/api/stocks', userRoutes); //added this
+app.use('/api/stocks', userRoutes); 
 app.use('/api/trade', userRoutes);
 
 // Routes for specific pages

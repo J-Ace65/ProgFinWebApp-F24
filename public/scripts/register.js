@@ -2,7 +2,7 @@ const form = document.getElementById('registerForm');
 const messageDiv = document.getElementById('message');
 
 form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Prevent the form from submitting traditionally
+    e.preventDefault(); 
 
     const formData = {
         username: form.username.value,

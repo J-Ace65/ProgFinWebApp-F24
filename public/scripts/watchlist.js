@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const buyButton = document.getElementById('buy-button');
     const sellButton = document.getElementById('sell-button');
 
-    let currentStock = null; // To track selected stock
-    let currentPrice = null; // To track current stock price
+    let currentStock = null; 
+    let currentPrice = null; 
 
     // Load stock details when a stock is clicked
     const loadStockDetails = async (symbol) => {
@@ -169,11 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error saving trade:', error);
             alert('An unexpected error occurred.');
         }
-    });
-
-    // "SELL" button placeholder
-    sellButton.addEventListener('click', () => {
-        alert('Sell functionality is not implemented yet.');
     });
 
     // Add stock list dynamically (if needed)

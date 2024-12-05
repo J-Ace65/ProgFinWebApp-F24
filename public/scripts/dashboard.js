@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     async function fetchActiveStocks() {
         try {
-            const response = await fetch('/api/stocks/active-stocks'); // API endpoint
+            const response = await fetch('/api/stocks/active-stocks'); 
             const data = await response.json();
 
             if (response.ok) {
@@ -26,14 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchTotalPnl() {
         try {
-            const response = await fetch('/api/stocks/total-pnl'); // API endpoint for PnL
+            const response = await fetch('/api/stocks/total-pnl'); 
             const data = await response.json();
     
             if (response.ok) {
                 const pnlElement = document.getElementById('total-pnl');
                 if (pnlElement) {
                     // Ensure totalPnl is a valid number before calling toFixed
-                    const totalPnl = Number(data.totalPnl) || 0; // Default to 0 if invalid
+                    const totalPnl = Number(data.totalPnl) || 0; 
                     pnlElement.textContent = `Total PnL: ${totalPnl.toFixed(2)}%`;
                 } else {
                     console.error('Element with id "total-pnl" not found');
@@ -51,8 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-
-    // Call the functions when the DOM is fully loaded
     fetchActiveStocks();
     fetchTotalPnl();
 });

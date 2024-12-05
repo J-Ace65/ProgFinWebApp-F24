@@ -34,7 +34,7 @@
 
     fetch('http://localhost:3000/api/users/tradehistory', {
         method: 'GET',
-        credentials: 'include' // Sends the session cookie with the request
+        credentials: 'include' 
     })
     .then(response => {
         if (!response.ok) {

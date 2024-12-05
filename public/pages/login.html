@@ -45,7 +45,7 @@
         const form = document.getElementById('loginForm');
 
         form.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevent form submission
+            e.preventDefault(); 
 
             const email = form.email.value;
             const password = form.password.value;
@@ -63,7 +63,7 @@
                     // Redirect to dashboard if login is successful
                     window.location.href = '/dashboard';
                 } else {
-                    // Show an alert if credentials are incorrect
+            
                     const errorMessage = await response.text();
                     alert(errorMessage);
                 }

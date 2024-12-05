@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         li.textContent = stock;
         li.className = 'bg-gray-700 hover:bg-gray-600 p-3 rounded cursor-pointer';
-        li.addEventListener('click', () => loadStockHistory(stock)); // Add click event
+        li.addEventListener('click', () => loadStockHistory(stock));
         stockList.appendChild(li);
     });
 
@@ -30,22 +30,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const labels = stockData.map((data) => data.date);
             const closingPrices = stockData.map((data) => data.close);
 
-            // Calculate SMA-30
-            const sma30 = calculateSMA(closingPrices, 30);
+            //  SMA-10
+            const sma10 = calculateSMA(closingPrices, 10);
 
+            // Buy Signals
             const buySignals = [];
-        for (let i = 1; i < closingPrices.length; i++) {
-            if (
-                sma30[i] !== null &&
-                closingPrices[i] > sma30[i] &&
-                closingPrices[i - 1] <= sma30[i - 1]
-            ) {
-                buySignals.push({ x: labels[i], y: closingPrices[i] });
+            for (let i = 1; i < closingPrices.length - 1; i++) {
+                if (
+                    sma10[i] !== null &&             // Ensure SMA-10 is available
+                    sma10[i] > closingPrices[i] &&  // SMA-10 is above the current price
+                    sma10[i - 1] <= closingPrices[i - 1] // SMA-10 crosses above the price
+                ) {
+                    // Buy at the next closing price
+                    buySignals.push({ x: labels[i + 1], y: closingPrices[i + 1] });
+                }
             }
-        }
+            
 
             // Update chart
-            updateChart(labels, closingPrices, sma30, buySignals, symbol);
+            updateChart(labels, closingPrices, sma10, buySignals, symbol);
 
             // Update statistics
             const mean = (closingPrices.reduce((sum, price) => sum + price, 0) / closingPrices.length).toFixed(2);
@@ -57,9 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p>Max: $${max}</p>
             `;
 
-            // Update performance metrics (e.g., buy signals, profit, etc.)
-            updatePerformanceMetrics(closingPrices, sma30);
-
+            // Update performance metrics
+            updatePerformanceMetrics(closingPrices, sma10);
         } catch (error) {
             console.error('Error loading stock details:', error);
             stockStats.innerHTML = '<p class="text-red-500">Failed to load stock data.</p>';
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update chart using Chart.js
     let chartInstance;
-    const updateChart = (labels, closingPrices, sma30, buySignals, symbol) => {
+    const updateChart = (labels, closingPrices, sma10, buySignals, symbol) => {
         chartContainer.innerHTML = '<canvas id="stock-chart"></canvas>';
         const ctx = document.getElementById('stock-chart').getContext('2d');
 
@@ -85,10 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     {
                         label: 'Buy Signal',
                         data: buySignals,
-                        backgroundColor: 'rgba(255, 165, 0, 0.7)', // Orange color for buy signals
+                        backgroundColor: 'rgba(255, 165, 0, 0.7)', 
                         pointRadius: 5,
                         type: 'scatter'
-                      },
+                    },
                     {
                         label: `${symbol} Closing Price`,
                         data: closingPrices,
@@ -98,8 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         tension: 0.1,
                     },
                     {
-                        label: 'SMA-30',
-                        data: sma30,
+                        label: 'SMA-10',
+                        data: sma10,
                         borderColor: 'rgba(192, 75, 75, 1)',
                         borderWidth: 2,
                         fill: false,
@@ -139,23 +141,22 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Update performance metrics
-    const updatePerformanceMetrics = (closingPrices, sma30) => {
+    const updatePerformanceMetrics = (closingPrices, sma10) => {
         let totalProfit = 0;
         let maxDrawdown = 0;
         let peakBalance = initialBalance;
         let balance = initialBalance;
 
-        // Simulate buy/sell logic
         const lotSize = 2; // Lot size
-        const maxPositions = 5; // Max positions
-        let activePositions = []; // Track open positions
+        const maxPositions = 5; 
+        let activePositions = []; 
 
         for (let i = 1; i < closingPrices.length; i++) {
-            // Buy signal: price crosses above SMA-30
+            // Buy signal: price crosses above SMA-10 and is rising
             if (
-                sma30[i] !== null &&
-                closingPrices[i] > sma30[i] &&
-                closingPrices[i - 1] <= sma30[i - 1]
+                sma10[i] !== null &&             
+                sma10[i] > closingPrices[i] &&  
+                sma10[i - 1] <= closingPrices[i - 1]
             ) {
                 if (activePositions.length < maxPositions) {
                     const entryPrice = closingPrices[i];
@@ -173,6 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         closedProfit += positionProfit;
                         return false;
                     }
+                    if (closingPrices[i]<entryPrice){
+                        closedProfit-=positionProfit;
+                        return false
+                    }
                     return true;
                 });
                 totalProfit += closedProfit;
@@ -188,8 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
         performanceMetrics.innerHTML = `
             <h3 class="text-lg font-bold mb-2">Performance Metrics</h3>
             <p>Total Profit: $${totalProfit.toFixed(2)}</p>
-            <p>Max Drawdown: $${maxDrawdown.toFixed(2)}</p>
-            <p>Overall Performance: ${(balance - initialBalance).toFixed(2)}</p>
+            
+            <p>Overall Performance: ${(initialBalance+totalProfit).toFixed(2)}</p>
         `;
     };
 

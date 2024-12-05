@@ -8,12 +8,12 @@ const activetrade= async (req, res) => {
         `SELECT COUNT(*) AS active_count FROM trade WHERE status = 'Active'`
       );
 
-      console.log('Query result:', result); // Log the raw result
+      console.log('Query result:', result); 
 
       const [rows] = result;
   
       res.json({
-        activeStocks: rows[0]?.active_count || 0, // Default to 0 if no active rows
+        activeStocks: rows[0]?.active_count || 0,
       });
     } catch (error) {
       console.error(error);
@@ -26,8 +26,8 @@ const activetrade= async (req, res) => {
       const [rows] = await pool.execute(
         `SELECT SUM(pnl) AS total_pnl FROM trade WHERE status = 'Active'`
       );
-  
-      const totalPnl = rows[0]?.total_pnl || 0; // Ensure totalPnl is always a number
+      // Ensure totalPnl is always a number
+      const totalPnl = rows[0]?.total_pnl || 0; 
       res.json({ totalPnl });
     } catch (error) {
       console.error('Error fetching total PnL:', error);

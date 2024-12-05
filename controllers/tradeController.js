@@ -5,12 +5,12 @@ const tradeController = {
     const { user_id, symbol, price_per_share, quantity, total_price, buy_time, trade_count } = req.body;
 
     try {
-      // Format buy_time to MySQL DATETIME format
-      const formattedBuyTime = new Date(buy_time).toISOString().slice(0, 19).replace('T', ' ');
-      const status = 'active'; // Default status
-      const pnl = 0; // Default P&L (profit/loss)
 
-      // Use Promise-based query
+      const formattedBuyTime = new Date(buy_time).toISOString().slice(0, 19).replace('T', ' ');
+      const status = 'active'; 
+      const pnl = 0; 
+
+
       const query = `
         INSERT INTO trade (user_id, symbol, price_per_share, quantity, total_price, buy_time, trade_count, status, pnl)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -21,7 +21,7 @@ const tradeController = {
         price_per_share,
         quantity,
         total_price,
-        formattedBuyTime, // Use formatted datetime
+        formattedBuyTime, 
         trade_count,
         status,
         pnl,

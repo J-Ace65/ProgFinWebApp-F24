@@ -15,7 +15,6 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 //tradehistory of user
 router.get('/tradehistory', getTradesByUser);
-// Route to fetching stock details
 // Route to fetching interday stock details
 router.get('/stock/:symbol', getStockDetails);
 
