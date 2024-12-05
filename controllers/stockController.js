@@ -5,6 +5,8 @@ const API_KEY = 'RO78EDLKGG4CBMAC'
 
 // Fetch stock details (price data, performance)
 const getStockDetails = async (req, res) => {
+     const userId = req.session.userId;
+
     const { symbol } = req.params;
 
     if (!symbol || typeof symbol !== 'string') {
@@ -17,7 +19,7 @@ const getStockDetails = async (req, res) => {
        
         );
 
-        console.log('API Response:', response.data);
+        // console.log('API Response:', response.data);
 
         const data = response.data['Time Series (60min)'];
         if (!data) {
@@ -37,7 +39,7 @@ const getStockDetails = async (req, res) => {
             100
         ).toFixed(2);
 
-        res.json({ prices, performance });
+        res.json({ prices, performance, userId });
     } catch (error) {
         console.error('Error fetching stock data:', error.message);
         res.status(500).json({ error: 'Failed to fetch stock data.' });

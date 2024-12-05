@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentStock = null; 
     let currentPrice = null; 
+    let userId=null;
 
     // Load stock details when a stock is clicked
     const loadStockDetails = async (symbol) => {
@@ -16,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             currentStock = symbol;
             currentPrice = data.prices.at(-1).close;
+            userId = data.userId; 
+
             const sma30 = calculateSMA(data.prices, 30);
 
             // Calculate Buy/Sell Signals
@@ -31,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             performanceDetails.textContent = 'Failed to load stock data.';
         }
     };
-
+    // sma calculation 
     const calculateSMA = (prices, period) => {
         const sma = [];
         for (let i = 0; i < prices.length; i++) {
@@ -50,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const signals = [];
     
         for (let i = 1; i < prices.length; i++) {
-            if (sma30[i]?.value !== null) { // Check SMA value exists
+            if (sma30[i]?.value !== null) { 
                 // Buy Signal: Price crosses above SMA
                 if (prices[i].close > sma30[i].value && prices[i - 1].close <= sma30[i - 1]?.value) {
                     signals.push({ time: prices[i].time, action: 'Buy', price: prices[i].close });
@@ -139,17 +142,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const quantity = parseInt(prompt("Enter the quantity you want to trade:")); // Example quantity
+        const quantity = parseInt(prompt("Enter the quantity you want to trade:")); 
         const totalPrice = currentPrice * quantity;
 
         const tradeData = {
-            user_id: 1, // Replace with dynamic user ID
+            user_id: userId, 
             symbol: currentStock,
             price_per_share: currentPrice,
             quantity,
             total_price: totalPrice,
-            buy_time: new Date().toISOString().slice(0, 19).replace('T', ' '), // MySQL-compatible datetime
-            trade_count: 1, // Increment logic if needed
+            buy_time: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            trade_count: 1, 
         };
 
         try {

@@ -2,19 +2,26 @@ const express = require('express');
 const path = require('path');
 const userRoutes = require('./routes/userRoutes');
 const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+const pool=require('./confiq/db')
 
 
 const app = express();
 
-app.use(session({
-    secret: 'tea', 
-    resave: false,
-    saveUninitialized: true,
-    cookie: { 
-        secure: false,
-        maxAge: 60*60*1000,
-     } 
-}));
+const sessionStore = new MySQLStore({}, pool);
+
+app.use(
+    session({
+        secret: 'tea',
+        resave: false,
+        saveUninitialized: true,
+        store: sessionStore,
+        cookie: {
+            secure: false, 
+            maxAge:60 * 60 * 1000, 
+        },
+    })
+);
 
 app.use(express.json());
 

@@ -50,6 +50,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+        async function fetchUserInfo() {
+            try {
+                const response = await fetch('/api/stocks/user-info'); 
+                const data = await response.json();
+    
+                if (response.ok) {
+                    const welcomeElement = document.getElementById('welcome-message');
+                    if (welcomeElement) {
+                        welcomeElement.textContent = `Welcome  ${data.username} to Your Dashboard!`;
+                    } else {
+                        console.error('Element with id "welcome-message" not found');
+                    }
+                } else {
+                    console.error(data.error);
+                    const welcomeElement = document.getElementById('welcome-message');
+                    if (welcomeElement) {
+                        welcomeElement.textContent = 'Welcome to Your Dashboard!';
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+                const welcomeElement = document.getElementById('welcome-message');
+                if (welcomeElement) {
+                    welcomeElement.textContent = 'Welcome to Your Dashboard!';
+                }
+            }
+        }
+    
+    fetchUserInfo();
     
     fetchActiveStocks();
     fetchTotalPnl();
